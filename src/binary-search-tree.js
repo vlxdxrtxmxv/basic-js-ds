@@ -10,49 +10,40 @@ class Node {
   constructor(data) {
     this.data = data;
     this.left = null;
-    this.right = null;
+    this.right = null
   }
 }
 
 class BinarySearchTree {
   constructor() {
-  this.root = null;
-}
-  root(){
-    return this.root ? this.root : null;
+    this.myroot = null
   }
+
+  root() {
+    return this.myroot ? this.myroot : null
+  }
+
   add(data) {
-let newNode = new Node(data);
-    if(this.root === null)
-    {
-      this.root= newNode;
-    }
-    else {
-        this.insertNode(this.root, newNode);
+    this.myroot = insertNode(this.myroot, data);
+
+    function insertNode(node, data) {
+      if (!node) {
+        return new Node(data)
+      }
+      if (node.data === data) {
+        return node
+      }
+      if (data < node.data) {
+        node.left = insertNode(node.left, data)
+      } else {
+        node.right = insertNode(node.right, data)
+      }
+      return node
     }
   }
 
-  insertNode(node, newNode) {
-    if (newNode.data < node.data) {
-        if (node.left === null) {
-            node.left = newNode;
-        }
-        else {
-            this.insertNode(node.left, newNode);
-        }
-    } 
-    else {
-        if (node.right === null) {
-            node.right = newNode;
-        }
-        else {
-            this.insertNode(node.right, newNode);
-        }
-    }
-}
-
- has(data) {
-    return searchWithIn(this.root, data);
+  has(data) {
+    return searchWithIn(this.myroot, data);
 
     function searchWithIn(node, data) {
       if (!node) {
@@ -67,25 +58,23 @@ let newNode = new Node(data);
 
     }
   }
-  find(data) {
-    return findIt(this.root, data);
 
-    function findIt(node, data)
-      {
-        if(!node)
-          return node;
-        if(node.data === data)
-        {
-          return data;
-        }
-        return data> node.data ?  findIt(node.right, data) : findIt(node.left, data); 
+  find(data) {
+    return findData(this.myroot, data)
+
+    function findData(node, data) {
+      if (!node) {
+        return node
       }
-    
+      if (node.data === data) {
+        return node
+      }
+      return node.data < data ? findData(node.right, data) : findData(node.left, data)
+    }
   }
 
-
-   remove(data) {
-    this.root = removeNode(this.root, data);
+  remove(data) {
+    this.myroot = removeNode(this.myroot, data);
 
     function removeNode(node, data) {
       if (!node) {
@@ -121,33 +110,30 @@ let newNode = new Node(data);
         return node
       }
     }
-   }
+  }
 
-   min() {
-if(this.root === null)
-{
-  return 'no elements';
-}
-    let node = this.root;
-    while(node.left)
-      {
-        node = node.left;
-      }
-    return node.data;
+
+  min() {
+    if (!this.myroot) {
+      return 'no elements in tree'
+    }
+
+    let node = this.myroot;
+    while (node.left) {
+      node = node.left
+    }
+    return node.data
   }
 
   max() {
-    if(this.root === null)
-    {
-      return 'no elements';
+    if (!this.myroot) {
+      return 'no elements in tree'
     }
-    let node = this.root;
-    while(node.right)
-      {
-        node = node.right;
-      }
-    return node.data;
-
+    let node = this.myroot;
+    while (node.right) {
+      node = node.right
+    }
+    return node.data
   }
 }
 module.exports = {
