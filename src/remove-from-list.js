@@ -33,6 +33,7 @@ function removeKFromList( l, k ) {
   while(item.next){
     item.next.value === k ? item.next = item.next.next : item = item.next;
   }
+ return l;
 }
 
 
