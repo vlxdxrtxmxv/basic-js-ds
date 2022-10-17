@@ -16,13 +16,14 @@ const { NotImplementedError } = require('../extensions/index.js');
 class Queue {
 constructor(){
   this.head = null;
+   this.length = 0;
 }
   getUnderlyingList() {
     return this.head;
   }
 
   enqueue(value) {
-   if(this.head === null)
+   if(this.length === 0)
    {
      this.head = new ListNode(value)
    }
@@ -33,7 +34,9 @@ constructor(){
           cur = cur.next;
         }
       cur.next = new ListNode(value);
+      
     }
+    this.length++;
   }
 
   dequeue() {
